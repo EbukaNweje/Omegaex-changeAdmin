@@ -64,17 +64,17 @@ const UserDetails = () => {
     console.log(creditDebitItem);
 
     if (creditDebitItem === "bonus") {
-        reqData = {bonus: `${Number(creditDebitValue) + Number(oneUserData.bonus)}`};
+        reqData = oneUserData.bonus;
     } else if (creditDebitItem === "profit") {
-        reqData = {totalProfit:`${Number(creditDebitValue) + Number(oneUserData.totalProfit)}`};
+        reqData = oneUserData.totalProfit;
     } else if (creditDebitItem === "refBonus") {
-        reqData = {ref: `${Number(creditDebitValue) + Number(oneUserData.ref)}`};
+        reqData = oneUserData.ref
     } else if (creditDebitItem === "accountBalance") {
-        reqData = {accountBalance: `${Number(creditDebitValue) + Number(oneUserData.accountBalance)}`};
+        reqData = oneUserData.accountBalance;
     } else if (creditDebitItem === "deposit") {
-        reqData = {totalDeposit: `${Number(creditDebitValue) + Number(oneUserData.totalDeposit)}`};
+        reqData = oneUserData.totalDeposit;
     } else if (creditDebitItem === "totalInv") {
-        reqData = {totalInvestment: `${Number(creditDebitValue) + Number(oneUserData.totalInvestment)}`};
+        reqData = oneUserData.totalInvestment;
     } 
 
     const handleCreditDebit = () => {
