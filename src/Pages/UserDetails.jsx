@@ -64,17 +64,17 @@ const UserDetails = () => {
     console.log(creditDebitItem);
 
     if (creditDebitItem === "bonus") {
-        reqData = oneUserData.bonus;
+        reqData = {bonus: creditDebitValue};
     } else if (creditDebitItem === "profit") {
-        reqData = oneUserData.totalProfit;
+        reqData = {totalProfit: creditDebitValue};
     } else if (creditDebitItem === "refBonus") {
-        reqData = oneUserData.ref
+        reqData = {ref: creditDebitValue};
     } else if (creditDebitItem === "accountBalance") {
-        reqData = oneUserData.accountBalance;
+        reqData = {accountBalance: creditDebitValue};
     } else if (creditDebitItem === "deposit") {
-        reqData = oneUserData.totalDeposit;
+        reqData = {totalDeposit: creditDebitValue};
     } else if (creditDebitItem === "totalInv") {
-        reqData = oneUserData.totalInvestment;
+        reqData = {totalInvestment: creditDebitValue};
     } 
 
     const handleCreditDebit = () => {
@@ -94,7 +94,6 @@ const UserDetails = () => {
                     toast.dismiss(toastLoadingId);
                     console.log(response);
                     setCreditDebit(false);
-                    toast.success("Account updated successfully");
                     setTimeout(() => {
                         handleGetOneUserData();
                     }, 1000);
