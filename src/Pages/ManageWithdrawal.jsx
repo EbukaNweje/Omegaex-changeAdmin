@@ -8,7 +8,7 @@ const ManageWithdrawal = () => {
   const [userData, setUserData] = useState([]);
 
     const acceptDeposit = (withdrawId) => {
-        const url = `https://omega-exchange-back-end.vercel.app/api/confirm-withdrawal/${withdrawId}`;
+        const url = `https://omega-exchange-back-end-one.vercel.app//api/confirm-withdrawal/${withdrawId}`;
         axios.post(url)
             .then((response) => {
                 console.log(response.data.message);
@@ -21,7 +21,7 @@ const ManageWithdrawal = () => {
     };
 
     const getallDeposit = () => {
-        const url = "https://omega-exchange-back-end.vercel.app/api/allwithdrawal";
+        const url = "https://omega-exchange-back-end-one.vercel.app//api/allwithdrawal";
         axios.get(url)
             .then((response) => {
                 console.log(response.data);
