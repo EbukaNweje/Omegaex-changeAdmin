@@ -49,15 +49,28 @@ const UserDetails = () => {
     const handleOnRoi = () => {
         setShowActions(false);
         const toastLoadingId = toast.loading("Please wait...");
-        setTimeout(() => {
-            toast.dismiss(toastLoadingId);
-            toast.success("ROI turned of successfully");
-        }, 3000);
+        const url = `https://omega-exchange-back-end-one.vercel.app/api/turn-on-user-notification/${id}`;
+        axios
+            .post(url)
+            .then((res) => {
+                console.log(res);
+                toast.dismiss(toastLoadingId);
+                toast.success(res.data.message);
+                setTimeout(() => {
+                    handleGetOneUserData();
+                }, 1000);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        // setTimeout(() => {
+        //     toast.dismiss(toastLoadingId);
+        //     toast.success("ROI turned of successfully");
+        // }, 3000);
     };
 
     const [creditDebit, setCreditDebit] = useState(false);
     const [creditOrDebit, setCreditOrDebit] = useState("Credit");
-
     const [creditDebitValue, setCreditDebitValue] = useState("");
     const [creditDebitItem, setCreditDebitItem] = useState("");
     let reqData;
@@ -200,6 +213,9 @@ const UserDetails = () => {
         window.history.back()
       };
     
+      const handleNotification = () =>{
+       
+      }
 
     return (
         <>
@@ -224,7 +240,7 @@ const UserDetails = () => {
                                 </button>
                                 {showActions && (
                                     <div className="w-44 h-max absolute top-10 right-0 border border-gray-200 rounded p-3 bg-white shadow">
-                                        <NavLink
+                                        {/* <NavLink
                                             to={`/admin/dashboard/login-activity/${2}`}
                                         >
                                             <div className="w-full h-7 flex items-center pl-1 text-sm hover:bg-gray-300 cursor-pointer">
@@ -239,12 +255,25 @@ const UserDetails = () => {
                                         >
                                             Block
                                         </div>
+                                        
+                                        {/* <div
+                                            className="w-full h-7 flex items-center pl-1 text-sm hover:bg-gray-300 cursor-pointer"
+                                            onClick={() =>
+                                                setCreditDebit(!creditDebit)
+                                            }
+                                        >
+                                            Turn on notification
+                                        </div> */}
                                         <div
                                             className="w-full h-7 flex items-center pl-1 text-sm hover:bg-gray-300 cursor-pointer"
                                             onClick={handleOnRoi}
                                         >
-                                            Turn off auto ROI
-                                        </div>
+                                            {
+                                                oneUserData?.notification
+                                                    ? "Turn off notification"
+                                                    : "Turn on notification"
+                                            }
+                                        </div> 
                                         <div
                                             className="w-full h-7 flex items-center pl-1 text-sm hover:bg-gray-300 cursor-pointer"
                                             onClick={() =>
@@ -253,7 +282,7 @@ const UserDetails = () => {
                                         >
                                             Credit/Debit
                                         </div>
-                                        <div
+                                        {/* <div
                                             className="w-full h-7 flex items-center pl-1 text-sm hover:bg-gray-300 cursor-pointer"
                                             onClick={() =>
                                                 setResetPwd(!resetPwd)
@@ -291,7 +320,7 @@ const UserDetails = () => {
                                             }
                                         >
                                             Send Email
-                                        </div>
+                                        </div> */}
                                         <div
                                             className="w-full h-max flex items-center pl-1 py-1 text-sm hover:bg-gray-300 cursor-pointer text-[#31ce36]"
                                             onClick={() => setLogin(!login)}
