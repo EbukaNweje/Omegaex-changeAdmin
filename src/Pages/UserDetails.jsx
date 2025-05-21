@@ -26,6 +26,11 @@ const UserDetails = () => {
             });
     };
 
+    const [emaildatas, setEmaildatas] = useState({
+        subject: "",
+        msg: "",
+    });
+
     // const handlDeleteOneUserData = () => {
        
     // };
@@ -166,14 +171,25 @@ const UserDetails = () => {
     };
 
     const [sendEmail, setSendEmail] = useState(false);
-    const handleSendEmail = () => {
+const handleSendEmail = () => {
         setSendEmail(false);
         const toastLoadingId = toast.loading("Please wait...");
-        setTimeout(() => {
-            toast.dismiss(toastLoadingId);
-            toast.success("Email sent successfully");
-        }, 3000);
-        setShowActions(false);
+            const url = `https://omega-exchange-back-end-one.vercel.app/api/adminsendemail/${id}`;
+            axios
+                .post(url, emaildatas)
+                .then((response) => {
+                    console.log(response);
+                    toast.success("Email sent successfully");
+                    setTimeout(() => {
+                        toast.dismiss(toastLoadingId);
+                        handleGetOneUserData();
+                    }, 1000);
+                    setShowActions(false);
+                }).catch((error) => {
+                    console.log(error);
+                    toast.dismiss(toastLoadingId);
+                    setShowActions(false);
+                })
     };
 
     const [login, setLogin] = useState(false);
@@ -212,10 +228,6 @@ const UserDetails = () => {
     const goBack = () => {
         window.history.back()
       };
-    
-      const handleNotification = () =>{
-       
-      }
 
     return (
         <>
@@ -734,10 +746,12 @@ const UserDetails = () => {
                 <div className="w-full h-max pt-6 flex flex-col gap-4">
                     <p>This message will be sent to {oneUserData.fullName}</p>
                     <div className="w-full h-max">
-                        <input
+                       <input
                             type="text"
                             placeholder="Subject"
                             className="w-full h-10 pl-4 border border-gray-200 rounded-r outline-sky-300"
+                            value={emaildatas.subject}
+                            onChange={(e)=> setEmaildatas({...emaildatas,subject: e.target.value})}
                         />
                     </div>
                     <div className="w-full h-max">
@@ -747,7 +761,8 @@ const UserDetails = () => {
                             cols="30"
                             rows="10"
                             className="w-full h-20 pl-4 border border-gray-200 rounded-r outline-sky-300"
-                        ></textarea>
+                            value={emaildatas.msg}
+                            onChange={(e)=> setEmaildatas({...emaildatas,msg: e.target.value})}></textarea>
                     </div>
                 </div>
             </Modal>
